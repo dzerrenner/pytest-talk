@@ -1,4 +1,4 @@
 pytest-Talk
 ======
 
-- [start here](slides/contents.md)
+- [start here](reveal.js-3.6.0/index.html)
