@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>pytest in der Praxis</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+        <link rel="stylesheet" href="css/custom.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Font awesome -->
+        <script defer src="fontawesome/js/fa-brands.min.js"></script>
+        <script defer src="fontawesome/js/fa-regular.min.js"></script>
+        <script defer src="fontawesome/js/fa-solid.min.js"></script>
+        <script src="fontawesome/js/fontawesome.min.js"></script>
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <!-- ##### start ##### -->
+				<section>
+					<h1>pytest in der Praxis</h1>
+				</section>
+
+				<section>
+					<div class="left">
+                        <h2>Author</h2>
+                        <strong>David Zerrenner</strong>
+                        <ul class="fa-ul" style="margin-top: 1em;">
+                            <li><span class="fa-li"><i class="fas fa-envelope"></i></span><a href="mailto:dazer@bluenode.de">dazer@bluenode.de</a></li>
+                            <li><span class="fa-li"><i class="fab fa-twitter"></i></span><a href="https://twitter.com/DavidZerrenner">@DavidZerrenner</a></li>
+                            <li><span class="fa-li"><i class="fab fa-github"></i></span><a href="https://github.com/dzerrenner">github.com/dzerrenner</a></li>
+                        </ul>
+                        <p><a href="https://dzerrenner.github.io/bio">Bio</a></p>
+                    </div>
+                    <div class="right">
+                        <img src="images/avatar.jpg">
+                    </div>
+					<aside class="notes">
+						Notizen
+					</aside>
+				</section>
+
+                <section>
+                    <div class="left">
+                        <h1>Inhalt</h1>
+                    </div>
+                    <div class="right">
+                        <ul>
+                            <li>one</li>
+                            <li>two</li>
+                            <li>three</li>
+                            <li>four</li>
+                        </ul>
+                    </div>
+                </section>
+                <!-- ##### end ##### -->
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+			Reveal.configure({ slideNumber: 'h.v' });
+
+		</script>
+	</body>
+</html>
