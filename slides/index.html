@@ -36,7 +36,7 @@
 					<h1>pytest in der Praxis</h1>
 				</section>
 
-				<section>
+				<section data-timing="10">
 					<div class="left">
                         <h2>Author</h2>
                         <strong>David Zerrenner</strong>
@@ -56,18 +56,57 @@
 				</section>
 
                 <section>
-                    <div class="left">
-                        <h1>Inhalt</h1>
-                    </div>
-                    <div class="right">
-                        <ul>
-                            <li>one</li>
-                            <li>two</li>
-                            <li>three</li>
-                            <li>four</li>
-                        </ul>
-                    </div>
+                    <h1>Inhalt</h1>
+                    <ul>
+                        <li>pytest</li>
+                        <li>Parameter</li>
+                        <li>Fixtures</li>
+                        <li>Plugins</li>
+                    </ul>
                 </section>
+
+                <section>
+                    <section><h1>pytest</h1></section>
+                    <section>
+                        <h2>Was ist pytest?</h2>
+                        <p class="fragment fade-up" data-fragment-index="1">Test Framework <span class="fragment" data-fragment-index="6">zum Erstellen von Testframeworks</span></p>
+                        <p>
+                            <span class="fragment fade-up" data-fragment-index="2">Assertion introspection</span>
+                            <span class="fragment fade-up" data-fragment-index="3">• Fixtures</span>
+                            <span class="fragment fade-up" data-fragment-index="4">• Plugins</span>
+                        </p>
+                        <p class="fragment fade-up" data-fragment-index="5">
+                            <i class="fab fa-dropbox fa-2x"></i>
+                            <i class="fab fa-firefox fa-2x"></i>
+                        </p>
+                        <aside class="notes">
+                            <p>Testframework:
+                                Nosetests, Unittests, pytest-Testfälle; Framework zum Erstellen von Testframeworks</p>
+                            <p>Features:
+                                <br/> assertion introspection:
+                                    Instrumentierung von assert
+                                    kein self.assertEqual(), self.assertSonstwas(), nur assert
+                                <br/> Fixtures:
+                                    Mächtige Werkzeuge mit dependency injection
+                                <br/> Plugins:
+                                    viele 3rd party PLugins
+                                relativ einfach, eigene Plugins zu bauen -> Verweis auf Vorstellung und github</p>
+                            <p>Zielgruppe:
+                                Entwicklerteams, QA Teams, Unabhängige Testeinheiten, Test driven development, ...</p>
+                            <p>Referenzen: Mozilla, Dropbox</p>
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    References
+                    <img src="images/bopytest.jpg">
+                </section>
+
+                <section>
+					<h1>Danke!</h1>
+                    <i class="fab fa-meetup"></i>
+				</section>
                 <!-- ##### end ##### -->
 			</div>
 		</div>
@@ -87,7 +126,11 @@
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
 			});
-			Reveal.configure({ slideNumber: 'h.v' });
+			Reveal.configure({
+                slideNumber: 'h.v',
+                defaultTiming: 120,
+                mouseWheel: true
+			});
 
 		</script>
 	</body>
