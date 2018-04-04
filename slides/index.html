@@ -1,137 +1,258 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>pytest in der Praxis</title>
+    <title>pytest in der Praxis</title>
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
-        <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+    <link rel="stylesheet" href="css/custom.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-        <!-- Font awesome -->
-        <script defer src="fontawesome/js/fa-brands.min.js"></script>
-        <script defer src="fontawesome/js/fa-regular.min.js"></script>
-        <script defer src="fontawesome/js/fa-solid.min.js"></script>
-        <script src="fontawesome/js/fontawesome.min.js"></script>
+    <!-- Font awesome -->
+    <script defer src="fontawesome/js/fa-brands.min.js"></script>
+    <script defer src="fontawesome/js/fa-regular.min.js"></script>
+    <script defer src="fontawesome/js/fa-solid.min.js"></script>
+    <script src="fontawesome/js/fontawesome.min.js"></script>
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-                <!-- ##### start ##### -->
-				<section id="start">
-					<h1>pytest in der Praxis</h1>
-				</section>
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <!-- ##### start slides ##### -->
+        <section id="start">
+            <h1>pytest in der Praxis</h1>
+        </section>
 
-				<section data-timing="10" id="author">
-					<div class="left">
-                        <h2>Author</h2>
-                        <strong>David Zerrenner</strong>
-                        <ul class="fa-ul" style="margin-top: 1em;">
-                            <li><span class="fa-li"><i class="fas fa-envelope"></i></span><a href="mailto:dazer@bluenode.de">dazer@bluenode.de</a></li>
-                            <li><span class="fa-li"><i class="fab fa-twitter"></i></span><a href="https://twitter.com/DavidZerrenner">@DavidZerrenner</a></li>
-                            <li><span class="fa-li"><i class="fab fa-github"></i></span><a href="https://github.com/dzerrenner">github.com/dzerrenner</a></li>
-                        </ul>
-                        <p><a href="https://dzerrenner.github.io/bio">Bio</a></p>
-                    </div>
-                    <div class="right">
-                        <img src="images/avatar.jpg">
-                    </div>
-					<aside class="notes">
-						Notizen
-					</aside>
-				</section>
+        <section data-timing="10" id="author">
+            <div class="left">
+                <h2>Author</h2>
+                <strong>David Zerrenner</strong>
+                <ul class="fa-ul" style="margin-top: 1em;">
+                    <li><span class="fa-li"><i class="fas fa-envelope"></i></span><a href="mailto:dazer@bluenode.de">dazer@bluenode.de</a>
+                    </li>
+                    <li><span class="fa-li"><i class="fab fa-twitter"></i></span><a
+                            href="https://twitter.com/DavidZerrenner">@DavidZerrenner</a></li>
+                    <li><span class="fa-li"><i class="fab fa-github"></i></span><a href="https://github.com/dzerrenner">github.com/dzerrenner</a>
+                    </li>
+                </ul>
+                <p><a href="https://dzerrenner.github.io/bio">Bio</a></p>
+            </div>
+            <div class="right">
+                <img src="images/avatar.jpg">
+            </div>
+            <aside class="notes">
+                Notizen
+            </aside>
+        </section>
 
-                <section id="toc">
-                    <h1>Inhalt</h1>
-                    <ul>
-                        <li><a href="#/pytest">pytest</a></li>
-                        <li>assertions • Parameter</li>
-                        <li>Fixtures</li>
-                        <li>Hooks • Plugins</li>
-                    </ul>
-                </section>
+        <section id="toc">
+            <h1>Inhalt</h1>
+            <ul>
+                <li><a href="#/pytest">pytest</a></li>
+                <li><a href="#/assertions">assertions</a> • <a href="#/parameter">Parameter</a></li>
+                <li>Fixtures</li>
+                <li>Hooks • Plugins</li>
+            </ul>
+        </section>
 
-                <section id="pytest">
-                    <section><h1>pytest</h1></section>
-                    <section>
-                        <h2>Was ist pytest?</h2>
-                        <p class="fragment fade-up" data-fragment-index="1">Test Framework <span class="fragment" data-fragment-index="6">zum Erstellen von Testframeworks</span></p>
-                        <p>
-                            <span class="fragment fade-up" data-fragment-index="2">Assertion introspection</span>
-                            <span class="fragment fade-up" data-fragment-index="3">• Fixtures</span>
-                            <span class="fragment fade-up" data-fragment-index="4">• Plugins</span>
-                        </p>
-                        <p class="fragment fade-up" data-fragment-index="5">
-                            <i class="fab fa-dropbox fa-2x"></i>
-                            <i class="fab fa-firefox fa-2x"></i>
-                        </p>
-                        <aside class="notes">
-                            <p>Testframework:
-                                Nosetests, Unittests, pytest-Testfälle; Framework zum Erstellen von Testframeworks</p>
-                            <p>Features:
-                                <br/> assertion introspection:
-                                    Instrumentierung von assert
-                                    kein self.assertEqual(), self.assertSonstwas(), nur assert
-                                <br/> Fixtures:
-                                    Mächtige Werkzeuge mit dependency injection
-                                <br/> Plugins:
-                                    viele 3rd party PLugins
-                                relativ einfach, eigene Plugins zu bauen &rAarr; Verweis auf Vorstellung und github</p>
-                            <p>Zielgruppe:
-                                Entwicklerteams, QA Teams, Unabhängige Testeinheiten, Test driven development, ...</p>
-                            <p>Referenzen: Mozilla, Dropbox</p>
-                        </aside>
-                    </section>
-                </section>
+        <section id="pytest">
+            <section><h1>pytest</h1></section>
+            <section>
+                <h2>Was ist pytest?</h2>
+                <p class="fragment fade-up" data-fragment-index="1">Test Framework <span class="fragment"
+                                                                                         data-fragment-index="6">zum Erstellen von Testframeworks</span>
+                </p>
+                <p>
+                    <span class="fragment fade-up" data-fragment-index="2">Assertion introspection</span>
+                    <span class="fragment fade-up" data-fragment-index="3">• Fixtures</span>
+                    <span class="fragment fade-up" data-fragment-index="4">• Plugins</span>
+                </p>
+                <p class="fragment fade-up" data-fragment-index="5">
+                    <i class="fab fa-dropbox fa-2x"></i>
+                    <i class="fab fa-firefox fa-2x"></i>
+                </p>
+                <aside class="notes">
+                    <p>Testframework:
+                        Nosetests, Unittests, pytest-Testfälle; Framework zum Erstellen von Testframeworks</p>
+                    <p>Features:
+                        <br/> assertion introspection:
+                        Instrumentierung von assert
+                        kein self.assertEqual(), self.assertSonstwas(), nur assert
+                        <br/> Fixtures:
+                        Mächtige Werkzeuge mit dependency injection
+                        <br/> Plugins:
+                        viele 3rd party PLugins
+                        relativ einfach, eigene Plugins zu bauen &rAarr; Verweis auf Vorstellung und github</p>
+                    <p>Zielgruppe:
+                        Entwicklerteams, QA Teams, Unabhängige Testeinheiten, Test driven development, ...</p>
+                    <p>Referenzen: Mozilla, Dropbox</p>
+                </aside>
+            </section>
+        </section> <!-- /pytest -->
 
-                <section>
-                    References
-                    <img src="images/bopytest.jpg">
-                </section>
+        <section id="assertions">
+            <section>
+                <h3>assertions</h3>
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>pytest</th>
+                        <th>unittest</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <pre><code class="python" data-trim data-noescape>assert True</code></pre>
+                        </td>
+                        <td>
+                            <pre><code class="python" data-trim data-noescape>assertTrue(True)</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code class="python" data-trim data-noescape>assert a == b</code></pre>
+                        </td>
+                        <td>
+                            <pre><code class="python" data-trim data-noescape>assertEqual(a, b)</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre><code class="python" data-trim data-noescape>assert a <= b</code></pre>
+                        </td>
+                        <td>
+                            <pre><code class="python" data-trim data-noescape>assertLessEqual(a,b)</code></pre>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section>
+                <h3>assertion instrospection (1)</h3>
+                <pre><code class="python" data-trim data-noescape>
+    def test_assertion_set():
+>       assert {1, 2, 3} == {2, 3, 4}
+E       assert {1, 2, 3} == {2, 3, 4}
+E         Extra items in the left set:
+E         1
+E         Extra items in the right set:
+E         4
+E         Full diff:
+E         - {1, 2, 3}
+E         + {2, 3, 4}
+                        </code></pre>
+            </section>
+            <section>
+                <h3>assertion instrospection (2)</h3>
+                <pre><code class="python" data-trim data-noescape>
+    def test_assertion_dict():
+>       assert {"a":1, "b": 2} == {"a": 2, "c": 3}
+E       AssertionError: assert {'a': 1, 'b': 2} == {'a': 2, 'c': 3}
+E         Differing items:
+E         {'a': 1} != {'a': 2}
+E         Left contains more items:
+E         {'b': 2}
+E         Right contains more items:
+E         {'c': 3}
+E         Full diff:
+E         - {'a': 1, 'b': 2}
+E         ?       ^   ^   ^
+E         + {'a': 2, 'c': 3}
+E         ?       ^   ^   ^
+                        </code></pre>
+            </section>
+            <section>
+                <h3>assertion instrospection (3)</h3>
+                <pre><code class="python" data-trim data-noescape>
+    def test_assertion_namedtuple():
+        foo1 = Foo("a", "b", False)
+        foo2 = Foo("a", 1, False)
+>       assert foo1 == foo2
+E       AssertionError: assert Foo(a='a', b='b', c=False)
+                            == Foo(a='a', b=1, c=False)
+E         At index 1 diff: 'b' != 1
+E         Full diff:
+E         - Foo(a='a', b='b', c=False)
+E         ?              ^^^
+E         + Foo(a='a', b=1, c=False)
+E         ?              ^
+                        </code></pre>
+            </section>
+        </section><!-- /assertions -->
 
-                <section>
-					<h1>Danke!</h1>
-                    <i class="fab fa-meetup"></i>
-				</section>
-                <!-- ##### end ##### -->
-			</div>
-		</div>
+        <section id="parameter">
+            <section>
+                <h3>Parameter</h3>
+                <pre><code class="python" data-trim data-noescape>
+@pytest.mark.parametrize("test_input,expected", [
+    ("3+5", 8),
+    ("2+4", 6),
+    pytest.param("6*9", 42,
+                 marks=pytest.mark.xfail),
+])
+def test_eval(test_input, expected):
+    assert eval(test_input) == expected
+                        </code></pre>
+            </section>
+            <section>
+                erzeugt mehrere Tests für eine Funktion
+                <img src="images/invoke-collect-only.png">
+            </section>
+        </section> <!-- /parameter -->
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+        <section id="references">
+            References
+            <img src="images/bopytest.jpg">
+        </section> <!-- /references -->
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-			Reveal.configure({
-                slideNumber: 'h.v',
-                defaultTiming: 120,
-                mouseWheel: true
-			});
+        <section id="thanks">
+            <h1>Danke!</h1>
+            <i class="fab fa-meetup"></i>
+        </section> <!-- /thanks -->
 
-		</script>
-	</body>
+        <!-- ##### end slides##### -->
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+            {src: 'plugin/notes/notes.js', async: true},
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+    Reveal.configure({
+        slideNumber: 'h.v',
+        defaultTiming: 120,
+        mouseWheel: true
+    });
+
+</script>
+</body>
 </html>
