@@ -48,7 +48,6 @@
                     <li><span class="fa-li"><i class="fab fa-github"></i></span><a href="https://github.com/dzerrenner">github.com/dzerrenner</a>
                     </li>
                 </ul>
-                <p><a href="https://dzerrenner.github.io/bio">Bio</a></p>
             </div>
             <div class="right">
                 <img src="images/avatar.jpg">
@@ -198,19 +197,38 @@ E         ?              ^
             <section>
                 <h3>Parameter</h3>
                 <pre><code class="python" data-trim data-noescape>
-@pytest.mark.parametrize("test_input,expected", [
-    ("3+5", 8),
-    ("2+4", 6),
-    pytest.param("6*9", 42,
-                 marks=pytest.mark.xfail),
-])
-def test_eval(test_input, expected):
-    assert eval(test_input) == expected
+@pytest.mark.parametrize("data", (
+        (1, "foo", "bar"),
+        (2, "bla", "blubb")
+), ids=["foobar", "blablubb"])
+def test_db(testtable, log, data):
+    log.info("starting test")
+    cur = testtable.cursor()
+    insert_stmt = "INSERT INTO testtable VALUES (?, ?, ?)"
+    select_stmt = "SELECT i, col1, col2 from testtable"
+    cur.execute(insert_stmt, data)
+    cur.execute(select_stmt)
+    row = cur.fetchone()
+    assert row == data
+    log.info("test done")
                         </code></pre>
             </section>
             <section>
                 erzeugt mehrere Tests für eine Funktion
-                <img src="images/invoke-collect-only.png">
+                <!-- <img src="images/invoke-collect-only.png"> -->
+                <pre><code class="nohighlight" data-trim>
+(venv) C:\Projects\pytest-talk>pytest -m db --collect-only
+============================= test session starts =============================
+platform win32 -- Python 3.6.0, pytest-3.5.1, py-1.5.3, pluggy-0.6.0 -- c:\projects\pytest-talk\venv\scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Projects\pytest-talk, inifile: pytest.ini
+collected 8 items / 6 deselected
+<Module 'tests/test_fixtures_db.py'>
+  <Function 'test_db[foobar]'>
+  <Function 'test_db[blablubb]'>
+
+======================== 6 deselected in 0.35 seconds =========================
+                </code></pre>
             </section>
         </section> <!-- /parameter -->
 
