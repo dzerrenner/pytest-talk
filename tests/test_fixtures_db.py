@@ -19,7 +19,8 @@ def db(log):
 
 @pytest.fixture()
 def testtable(db):
-    create_stmt = "CREATE TABLE testtable (i INTEGER PRIMARY KEY , col1, col2)"
+    create_stmt = "CREATE TABLE testtable " \
+                  "(i INTEGER PRIMARY KEY , col1, col2)"
 
     db.execute(create_stmt)
     db.commit()
