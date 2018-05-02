@@ -48,6 +48,9 @@
                     <li><span class="fa-li"><i class="fab fa-github"></i></span><a href="https://github.com/dzerrenner">github.com/dzerrenner</a>
                     </li>
                 </ul>
+                <ul class="fa-ul" style="margin-top: 1em;">
+                    <li><span class="fa-li"><i class="fab fa-github"></i></span></span><a href="https://dzerrenner.github.io/pytest-talk/slides/index.html">Slides on github</a></li>
+                </ul>
             </div>
             <div class="right">
                 <img src="images/avatar.jpg">
@@ -62,8 +65,8 @@
             <ul>
                 <li><a href="#/pytest">pytest</a></li>
                 <li><a href="#/assertions">assertions</a> • <a href="#/parameter">Parameter</a></li>
-                <li>Fixtures</li>
-                <li>Hooks • Plugins</li>
+                <li><a href="#/parameter">Fixtures</a></li>
+                <li><a href="#/hooks">Hooks</a> • <a href="#/plugins">Plugins</a></li>
             </ul>
         </section>
 
@@ -195,7 +198,7 @@ E         ?              ^
 
         <section id="parameter">
             <section>
-                <h3>Parameter</h3>
+                <h3>Parameter • Fixtures</h3>
                 <pre><code class="python" data-trim data-noescape>
 @pytest.mark.parametrize("data", (
         (1, "foo", "bar"),
@@ -214,27 +217,88 @@ def test_db(testtable, log, data):
                         </code></pre>
             </section>
             <section>
-                erzeugt mehrere Tests für eine Funktion
-                <!-- <img src="images/invoke-collect-only.png"> -->
-                <pre><code class="nohighlight" data-trim>
-(venv) C:\Projects\pytest-talk>pytest -m db --collect-only
-============================= test session starts =============================
-platform win32 -- Python 3.6.0, pytest-3.5.1, py-1.5.3, pluggy-0.6.0 -- c:\projects\pytest-talk\venv\scripts\python.exe
-cachedir: .pytest_cache
-rootdir: C:\Projects\pytest-talk, inifile: pytest.ini
-collected 8 items / 6 deselected
-<Module 'tests/test_fixtures_db.py'>
-  <Function 'test_db[foobar]'>
-  <Function 'test_db[blablubb]'>
+                <h4>Fixture: testtable</h4>
+                <p>Hat Abhängigkeit zu weiterer Fixture</p>
+                <pre><code class="python" data-trim data-noescape>
+@pytest.fixture()
+def testtable(db):
+    create_stmt = "CREATE TABLE testtable " \
+                  "(i INTEGER PRIMARY KEY , col1, col2)"
 
-======================== 6 deselected in 0.35 seconds =========================
-                </code></pre>
+    db.execute(create_stmt)
+    db.commit()
+
+    return db
+                        </code></pre>
+
             </section>
+
+            <section>
+                <h4>Fixture: db</h4>
+                <p>Setup / Teardown</p>
+                <pre><code class="python" data-trim data-noescape>
+@pytest.fixture()
+def db(log):
+    # setup
+    logger = log.getChild("db")
+    conn = sqlite3.connect(":memory:")
+    conn.set_trace_callback(logger.debug)
+    # /setup
+
+    yield conn
+
+    # teardown
+    conn.close()
+    # /teardown
+                        </code></pre>
+            </section>
+
+            <section>
+                <h4>Zusammenfassung</h4>
+                <ul>
+                    <li><span class="fragment fade-up" data-fragment-index="1">mark.parametrize erzeugt pro Parameter eine Testdurchführung</span></li>
+                    <li><span class="fragment fade-up" data-fragment-index="2">Fixtures werden automatisch über mehrere Ebenen aufgelöst (dependency injection)</span></li>
+                    <li><span class="fragment fade-up" data-fragment-index="3">Setup / Teardown in einer Funktion mit yield</span></li>
+                </ul>
+            </section>
+
         </section> <!-- /parameter -->
 
+        <section id="hooks">
+            <h3>Hooks</h3>
+            <p>siehe</p>
+            <ul>
+                <li>pytest_collection_modifyitems (Liste der Test-Nodes vor der Durchführung bearbeiten)</li>
+                <li>pytest_generate_tests (einzelne Test-Node vor der Durchführung)</li>
+            </ul>
+        </section> <!-- /hooks -->
+
+        <section id="plugins">
+            <h3>Plugins</h3>
+            <p>Beispiele:</p>
+            <ul>
+                <li><a href="https://github.com/dzerrenner/pytest-report-jinja">pytest-report-jinja</a></li>
+                <li><a href="https://github.com/dzerrenner/pytest-jsonverdict">pytest-json-verdict</a></li>
+            </ul>
+        </section> <!-- /plugins -->
+
+        <section id="demok">
+            <h3>Live-Demo</h3>
+        </section> <!-- /hooks -->
+
         <section id="references">
-            References
-            <img src="images/bopytest.jpg">
+            <section>
+                <h3>References</h3>
+                <img src="images/bopytest.jpg">
+            </section>
+            <section>
+                <h3>References</h3>
+                <ul>
+                    <li><a href="https://docs.pytest.org/en/latest/reference.html">pytest Reference</a></li>
+                    <li><a href="http://devork.be/talks/advanced-fixtures/advfix.html">Advanced py.test Fixtures</a></li>
+                    <li><a href="http://pythontesting.net/framework/pytest/pytest-fixtures/">Pythontesting - Pytest fixtures</a></li>
+                </ul>
+            </section>
         </section> <!-- /references -->
 
         <section id="thanks">
