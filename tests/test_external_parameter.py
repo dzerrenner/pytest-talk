@@ -1,5 +1,3 @@
-import pytest
-
 PARAMS = {
     "test_something": {
         "p1": [1, 2, 3, 4, "bla", ],  # 5
