@@ -7,6 +7,7 @@ PARAMS = {
     },
 }
 
+
 def pytest_generate_tests(metafunc):
     def mark_xfails(values):
         # mark test as xfail if one parmeter is a string
@@ -30,6 +31,7 @@ def pytest_generate_tests(metafunc):
 
 def add(p1, p2):
     return p1 + p2
+
 
 def test_something(p1, p2):
     assert p1 + p2 == add(p1, p2)
