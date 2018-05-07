@@ -32,4 +32,4 @@ def add(p1, p2):
 
 
 def test_something(p1, p2):
-    assert p1 + p2 == add(p1, p2)
+    assert add(p1, p2) == p1 + p2
