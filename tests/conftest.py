@@ -8,7 +8,7 @@ from test_external_parameter import PARAMS
 @pytest.fixture(scope="session")
 def session_logger():
     chromalog.basicConfig(level=logging.DEBUG)
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger("pytest")
     logger.debug("created session scope logger")
     return logger
 

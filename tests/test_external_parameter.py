@@ -1,6 +1,9 @@
+import operator
+import pytest
+
 PARAMS = {
-    "test_something": {
-        "p1": [1, 2, 3, 4, "bla", ],  # 5
+    "test_cocktail_volume": {
+        "p1": [3, 2, 1, 4, -1000, ],  # 5
         "p2": [4, 7, 2, ],            # 3 -> 15 test instances
     },
 }
@@ -10,9 +13,9 @@ def pytest_generate_tests(metafunc):
     def mark_xfails(values):
         # mark test as xfail if one parmeter is a string
         for v in values:
-            if isinstance(v, str):
-                yield v
-                # yield pytest.param(v, marks=[pytest.mark.xfail(reason="can not add str to int", run=False)])
+            if v < 0:
+                # yield v
+                yield pytest.param(v, marks=[pytest.mark.xfail(reason="volume has to be positive", run=False)])
             else:
                 yield v
 
@@ -27,9 +30,9 @@ def pytest_generate_tests(metafunc):
                 metafunc.parametrize(fixture_name, mark_xfails(values))
 
 
-def add(p1, p2):
-    return p1 + p2
+def calc_volume(p1, p2):
+    return operator.add(p1, p2)
 
 
-def test_something(p1, p2):
-    assert add(p1, p2) == p1 + p2
+def test_cocktail_volume(p1, p2):
+    assert calc_volume(p1, p2) > 0
