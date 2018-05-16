@@ -65,7 +65,7 @@
             <ul>
                 <li><a href="#/pytest">pytest</a></li>
                 <li><a href="#/assertions">assertions</a> • <a href="#/parameter">Parameter</a></li>
-                <li><a href="#/parameter">Fixtures</a></li>
+                <li><a href="#/parameter">Fixtures</a> • <a href="#/dynamic">dynamische Parameter</a></li>
                 <li><a href="#/hooks">Hooks</a> • <a href="#/plugins">Plugins</a></li>
             </ul>
         </section>
@@ -277,14 +277,68 @@ def db(log):
 
             <section>
                 <h4>Zusammenfassung</h4>
-                <ul>
-                    <li><span class="fragment fade-up" data-fragment-index="1">mark.parametrize erzeugt pro Parameter eine Testdurchführung</span></li>
-                    <li><span class="fragment fade-up" data-fragment-index="2">Fixtures werden automatisch über mehrere Ebenen aufgelöst (dependency injection)</span></li>
-                    <li><span class="fragment fade-up" data-fragment-index="3">Setup / Teardown in einer Funktion mit yield</span></li>
-                </ul>
+                    <p><span class="fragment fade-up" data-fragment-index="1">mark.parametrize erzeugt pro Parameter eine Testdurchführung</span></p>
+                    <p><span class="fragment fade-up" data-fragment-index="2">Fixtures werden automatisch über mehrere Ebenen aufgelöst (dependency injection)</span></p>
+                    <p><span class="fragment fade-up" data-fragment-index="3">Setup / Teardown in einer Funktion mit <code>yield</code></span></p>
             </section>
 
         </section> <!-- /parameter -->
+
+        <section id="dynamic">
+            <section>
+                <h3>Beispiel: dynamische Parameter</h3>
+                <p class="fragment fade-up" data-fragment-index="1">
+                    Parameter stehen direkt beim Code der Testfunktion.
+                </p>
+                <p class="fragment fade-up" data-fragment-index="2">
+                    Dynamische Parametrisierung kann über den Hook <code>pytest_generate_tests</code> realisiert werden.
+                </p>
+                <p class="fragment fade-up" data-fragment-index="3">
+                    Freie Wahl bei der Bereistellung der Parameter (externe Datei, DB, python-Modul, ...).
+                </p>
+                <p class="fragment fade-up" data-fragment-index="4">
+                    Freie Wahl bei der Zusammenstellung der Testfälle aus den Parametern (Kombination, Liste, ...).
+                </p>
+            </section>
+            <section>
+                <p>Testfunktion und Parameter</p>
+                <pre><code class="python" data-trim data-noescape>
+PARAMS = {
+    "test_cocktail_volume": {
+        "p1": [3, 2, 1, 4, -1000, ],  # 5
+        "p2": [4, 7, 2, ],            # 3 -> 15 test instances
+    },
+}
+
+def pytest_configure(config):  # in conftest.py
+    config.my_external_params = PARAMS
+
+def test_cocktail_volume(p1, p2):
+    assert calc_volume(p1, p2) > 0
+                </code></pre>
+            </section>
+            <section>
+                <p>Hook <code>pytest_generate_tests</code></p>
+                <pre style="width: 95%;"><code style="max-height: 450px;" class="python" data-trim data-noescape>
+def pytest_generate_tests(metafunc):
+   def mark_xfails(values):
+      # mark test as xfail if one parmeter is less than zero
+      for v in values:
+         if v < 0:
+            yield pytest.param(v, marks=[pytest.mark.xfail(...)])
+         else:
+            yield v
+
+   test_function_name = metafunc.function.__name__
+   if test_function_name in metafunc.config.my_external_params:
+      params =
+          metafunc.config.my_external_params.get(test_function_name)
+      for fixture_name, values in params.items():
+          if fixture_name in metafunc.fixturenames:
+              metafunc.parametrize(fixture_name, mark_xfails(values))
+                </code></pre>
+            </section>
+        </section>
 
         <section id="hooks">
             <h3>Hooks</h3>
@@ -296,16 +350,24 @@ def db(log):
         </section> <!-- /hooks -->
 
         <section id="plugins">
+            <section>
             <h3>Plugins</h3>
             <p>Beispiele:</p>
             <ul>
                 <li><a href="https://github.com/dzerrenner/pytest-report-jinja">pytest-report-jinja</a></li>
                 <li><a href="https://github.com/dzerrenner/pytest-jsonverdict">pytest-json-verdict</a></li>
             </ul>
+            </section>
+            <section>
+            <h3>Plugins</h3>
+                <p class="fragment fade-up" data-fragment-index="1">Sammlung aus Hooks, Fixtures etc.</p>
+                <p class="fragment fade-up" data-fragment-index="2">Einbinden über <code>entry_points</code> in setup.py</p>
+                <p class="fragment fade-up" data-fragment-index="3"><a href="https://docs.pytest.org/en/latest/writing_plugins.html">https://docs.pytest.org/en/latest/writing_plugins.html</a></p>
+            </section>
         </section> <!-- /plugins -->
 
         <section id="demok">
-            <h3>Live-Demo</h3>
+            <h3><span style="text-decoration: line-through">Live-Demo</span></h3>
         </section> <!-- /hooks -->
 
         <section id="references">

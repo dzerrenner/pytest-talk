@@ -11,7 +11,7 @@ PARAMS = {
 
 def pytest_generate_tests(metafunc):
     def mark_xfails(values):
-        # mark test as xfail if one parmeter is a string
+        # mark test as xfail if one parmeter is less than zero
         for v in values:
             if v < 0:
                 # yield v
