@@ -277,9 +277,9 @@ def db(log):
 
             <section>
                 <h4>Zusammenfassung</h4>
-                    <p><span class="fragment fade-up" data-fragment-index="1">mark.parametrize erzeugt pro Parameter eine Testdurchführung</span></p>
-                    <p><span class="fragment fade-up" data-fragment-index="2">Fixtures werden automatisch über mehrere Ebenen aufgelöst (dependency injection)</span></p>
-                    <p><span class="fragment fade-up" data-fragment-index="3">Setup / Teardown in einer Funktion mit <code>yield</code></span></p>
+                <p><span class="fragment fade-up" data-fragment-index="1"><code>mark.parametrize</code> erzeugt pro Parameterwert eine Testdurchführung</span></p>
+                <p><span class="fragment fade-up" data-fragment-index="2">Fixtures werden automatisch über mehrere Ebenen aufgelöst (dependency injection)</span></p>
+                <p><span class="fragment fade-up" data-fragment-index="3">Setup / Teardown in einer Funktion mit <code>yield</code></span></p>
             </section>
 
         </section> <!-- /parameter -->
@@ -344,25 +344,24 @@ def pytest_generate_tests(metafunc):
             <h3>Hooks</h3>
             <p>siehe</p>
             <ul>
-                <li>pytest_collection_modifyitems (Liste der Test-Nodes vor der Durchführung bearbeiten)</li>
-                <li>pytest_generate_tests (einzelne Test-Node vor der Durchführung)</li>
+                <li><code>pytest_collection_modifyitems</code><br/>&rAarr; Liste der Test-Nodes vor der Durchführung bearbeiten</li>
+                <li><code>pytest_generate_tests</code><br/>&rAarr; einzelne Test-Node vor der Durchführung</li>
             </ul>
         </section> <!-- /hooks -->
 
         <section id="plugins">
             <section>
             <h3>Plugins</h3>
+                <p class="fragment fade-up" data-fragment-index="1">Sammlung aus Hooks, Fixtures etc.</p>
+                <p class="fragment fade-up" data-fragment-index="2">Einbinden über <code>entry_points</code> in setup.py</p>
+                <p class="fragment fade-up" data-fragment-index="3"><a href="https://docs.pytest.org/en/latest/writing_plugins.html">https://docs.pytest.org/en/latest/writing_plugins.html</a></p>
+            </section>
+            <section>
             <p>Beispiele:</p>
             <ul>
                 <li><a href="https://github.com/dzerrenner/pytest-report-jinja">pytest-report-jinja</a></li>
                 <li><a href="https://github.com/dzerrenner/pytest-jsonverdict">pytest-json-verdict</a></li>
             </ul>
-            </section>
-            <section>
-            <h3>Plugins</h3>
-                <p class="fragment fade-up" data-fragment-index="1">Sammlung aus Hooks, Fixtures etc.</p>
-                <p class="fragment fade-up" data-fragment-index="2">Einbinden über <code>entry_points</code> in setup.py</p>
-                <p class="fragment fade-up" data-fragment-index="3"><a href="https://docs.pytest.org/en/latest/writing_plugins.html">https://docs.pytest.org/en/latest/writing_plugins.html</a></p>
             </section>
         </section> <!-- /plugins -->
 
