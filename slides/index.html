@@ -93,8 +93,8 @@
             <section>
                 <h2>Was ist pytest?</h2>
 
-                <p class="fragment fade-up" data-fragment-index="1">Test Framework <span class="fragment"
-                                                                                         data-fragment-index="6">zum Erstellen von Testframeworks</span>
+                <p class="fragment fade-up" data-fragment-index="1">Test-Framework <span class="fragment"
+                                                                                         data-fragment-index="6">zum Erstellen von Test-Frameworks</span>
                 </p>
                 <p>
                     <span class="fragment fade-up" data-fragment-index="2">Assertion introspection</span>
@@ -346,6 +346,7 @@ def pytest_generate_tests(metafunc):
             <ul>
                 <li><code>pytest_collection_modifyitems</code><br/>&rAarr; Liste der Test-Nodes vor der Durchführung bearbeiten</li>
                 <li><code>pytest_generate_tests</code><br/>&rAarr; einzelne Test-Node vor der Durchführung</li>
+                <li><code>pytest_addoption</code><br/>&rAarr; eigene Kommandozeilen-Parameter</li>
             </ul>
         </section> <!-- /hooks -->
 
